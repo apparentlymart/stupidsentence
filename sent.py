@@ -46,6 +46,7 @@ PARTICIPAL = choose("limping", "falling")
 
 ADVERB = choose("sluggishly", "quickly", "immediately", "enthusiastically", "stubbornly", "willingly", "unwillingly")
 ADJECTIVE = choose("huge", "tiny", "wonderful", "magnificent", PARTICIPAL)
+CONJUNCTION = choose("but", "and")
 
 NP = choose(
     j(PLURAL_DETERMINER, opt(" ", ADJECTIVE), " ", choose(MASS_NOUN)),
@@ -58,9 +59,14 @@ VP = j(choose(
     j(TRANSITIVE_VERB, " ", NP),
 ), opt(" ", ADVERB))
 
-S = j(NP, " ", VP, ".")
+S = j(NP, " ", VP)
+
+MAIN = choose(
+    j(S, "."),
+    j(S, ", ", CONJUNCTION, " ", S, "."),
+)
 
 for i in xrange(1, 20):
-    result = S()
+    result = MAIN()
     print result
 
