@@ -48,6 +48,8 @@ ADVERB = choose("sluggishly", "quickly", "immediately", "enthusiastically", "stu
 ADJECTIVE = choose("huge", "tiny", "wonderful", "magnificent", PARTICIPAL)
 CONJUNCTION = choose("but", "and")
 
+PREPOSITION = choose("across", "over", "around", "into", "onto", "through")
+
 NP = choose(
     j(PLURAL_DETERMINER, opt(" ", ADJECTIVE), " ", choose(MASS_NOUN)),
     j(SINGULAR_DETERMINER, opt(" ", ADJECTIVE), " ", choose(COUNT_NOUN)),
@@ -57,7 +59,7 @@ NP = choose(
 VP = j(choose(
     INTRANSITIVE_VERB,
     j(TRANSITIVE_VERB, " ", NP),
-), opt(" ", ADVERB))
+), opt(" ", ADVERB), opt(" ", PREPOSITION, " ", NP))
 
 S = j(NP, " ", VP)
 
